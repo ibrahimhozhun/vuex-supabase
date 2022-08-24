@@ -1,12 +1,12 @@
 <template>
-  <div></div>
+  <div>signup</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "HomeView",
+  name: "SignupView",
   components: {},
 });
 </script>

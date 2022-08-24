@@ -1,8 +1,19 @@
 <template>
   <div class="bg-slate-600 min-h-screen">
-    <nav><router-link to="/">Home</router-link></nav>
+    <Navbar />
+    <router-view />
   </div>
-  <router-view />
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import Navbar from "@/components/Navbar.vue";
+
+export default defineComponent({
+  name: "App",
+  components: {
+    Navbar,
+  },
+});
+</script>
 
 <style></style>
