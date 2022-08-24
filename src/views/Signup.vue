@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+import { useStore } from "@/store";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
@@ -35,9 +36,14 @@ export default defineComponent({
   setup() {
     const email = ref<string>("");
     const password = ref<string>("");
+    const store = useStore();
 
     const handleSubmit = () => {
-      console.log(email.value, password.value);
+      // Call signup action
+      store.dispatch("signup", {
+        email: email.value,
+        password: password.value,
+      });
     };
 
     return { handleSubmit, email, password };
