@@ -7,11 +7,11 @@
   </div>
 </template>
 <script lang="ts">
-import Navbar from "@/components/Navbar.vue";
-import { defineComponent } from "vue";
+import Navbar from '@/components/Navbar.vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     Navbar,
   },

@@ -16,25 +16,45 @@
     >
       <h1 class="flex-[4] ml-12 text-2xl text-gray-900 font-bold">Vuex Auth</h1>
       <div class="flex justify-around flex-[3] text-md">
-        <!-- for all users -->
-        <router-link to="/">Home</router-link>
-        <!-- for logged in users -->
-        <span>Logged in as...</span>
-        <button>Logout</button>
-        <!-- for logged out users -->
-        <router-link to="/login">Login</router-link>
-        <router-link to="/signup">Signup</router-link>
+        <div class="flex justify-around w-full">
+          <!-- for all users -->
+          <router-link to="/">Home</router-link>
+          <!-- for logged in users -->
+          <template v-if="user">
+            <span>{{ user?.email }}</span>
+            <button class="" @click="logout">Logout</button>
+          </template>
+          <!-- for logged out users -->
+          <template v-if="!user">
+            <router-link to="/login">Login</router-link>
+            <router-link to="/signup">Signup</router-link>
+          </template>
+        </div>
       </div>
     </nav>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import supabase from '@/config/supabase';
+import { useStore } from '@/store';
+import { computed, defineComponent, onBeforeMount } from 'vue';
 
 export default defineComponent({
-  name: "NavBar",
-  components: {},
+  name: 'NavBar',
+  setup() {
+    const store = useStore();
+
+    onBeforeMount(() => {
+      // Update user state if user has logged in before
+      const user = supabase.auth.user();
+      store.commit('setUser', user);
+    });
+
+    const logout = () => store.dispatch('logout');
+
+    return { logout, user: computed(() => store.state.user) };
+  },
 });
 </script>
 <style>

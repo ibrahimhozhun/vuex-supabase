@@ -1,6 +1,7 @@
 <template>
   <div class="center">
     <form class="form-container" @submit.prevent="handleSubmit">
+      <div v-if="error">{{ error.message }}</div>
       <h3 class="form-title">Login</h3>
 
       <input
@@ -28,19 +29,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import router from '@/router';
+import { useStore } from '@/store';
+import { computed } from '@vue/reactivity';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: "LoginView",
+  name: 'LoginView',
   setup() {
-    const email = ref<string>("");
-    const password = ref<string>("");
+    const email = ref<string>('');
+    const password = ref<string>('');
+    const store = useStore();
+    const error = computed(() => store.state.error);
+    const user = computed(() => store.state.user);
 
-    const handleSubmit = () => {
-      console.log(email.value, password.value);
+    const handleSubmit = async () => {
+      // Call signup action
+      await store.dispatch('login', {
+        email: email.value,
+        password: password.value,
+      });
+
+      !error.value && user.value && router.push({ name: 'home' });
     };
 
-    return { handleSubmit, email, password };
+    return {
+      handleSubmit,
+      email,
+      password,
+      error,
+    };
   },
 });
 </script>
@@ -59,7 +77,7 @@ export default defineComponent({
 }
 
 .center {
-  @apply flex items-center justify-center h-screen;
+  @apply flex items-center justify-center h-[calc(100vh-4rem)];
 }
 
 .button {

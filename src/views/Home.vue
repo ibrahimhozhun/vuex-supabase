@@ -47,15 +47,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: "HomeView",
+  name: 'HomeView',
   setup() {
     const blogs = ref([
-      { title: "Why Coffee is Better than Tea", id: 1 },
-      { title: "...Then I Took an Arrow in the Knee", id: 2 },
-      { title: "Mario vs Luigi, Ultimate Showdown", id: 3 },
+      { title: 'Why Coffee is Better than Tea', id: 1 },
+      { title: '...Then I Took an Arrow in the Knee', id: 2 },
+      { title: 'Mario vs Luigi, Ultimate Showdown', id: 3 },
     ]);
 
     return {
